@@ -29,8 +29,8 @@ namespace NoFriendlyFire
 
                 Thing launcher       = (Thing)t.GetField("launcher",       BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
                 Thing assignedTarget = (Thing)t.GetField("assignedTarget", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-
-                if (hitThing.Faction.Equals(launcher.Faction) && assignedTarget != hitThing)
+                
+                if (!launcher.HostileTo(hitThing.Faction) && assignedTarget != hitThing)
                     hitThing = null;
 
             } catch (NullReferenceException) { }
