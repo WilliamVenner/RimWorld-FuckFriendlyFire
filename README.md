@@ -6,6 +6,8 @@
 
 [Forum Thread](https://ludeon.com/forums/index.php?topic=34414)
 
+[Nexus Mods](http://www.nexusmods.com/rimworld/mods/197/)
+
 _(This mod has no requirements)_
 
 Don't you just hate it when a colonist shoots another accidentally?
