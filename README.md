@@ -1,3 +1,5 @@
+![](https://raw.githubusercontent.com/WilliamVenner/RimWorld-NoFriendlyFire/master/About/Preview.png)
+
 ## NoFriendlyFire
 
 [Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=1013648397)
