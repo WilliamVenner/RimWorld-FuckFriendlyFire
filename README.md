@@ -11,6 +11,7 @@
 _(This mod has no requirements)_
 
 Don't you just hate it when a colonist shoots another accidentally?
+
 This mod stops bullets from accidentally hitting:
 
 * Your colonists
