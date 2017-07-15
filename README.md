@@ -1,5 +1,7 @@
 ## NoFriendlyFire
 
+[Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=1013648397)
+
 (This mod has no requirements)
 
 Don't you just hate it when a colonist shoots another accidentally?
