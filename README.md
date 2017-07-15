@@ -11,13 +11,13 @@
 _(This mod has no requirements)_
 
 Don't you just hate it when a colonist shoots another accidentally?
-This mod stops bullets from hitting:
+This mod stops bullets from accidentally hitting:
 
 * Your colonists
 * Your animals
+* Friendly factions
 
 It doesn't stop bullets from hitting:
 
 * Enemies
-* Friendly factions
 * Anything you specifically target
