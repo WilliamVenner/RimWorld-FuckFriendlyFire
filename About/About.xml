@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>[A17] NoFriendlyFire</name>
+	<author>Billy [U:1:80628317]</author>
+	<targetVersion>0.17.0</targetVersion>
+	<description>(This mod has no requirements)
+
+Don't you just hate it when a colonist shoots another accidentally?
+This mod stops bullets from hitting:
+
+* Your colonists
+* Your animals
+
+It doesn't stop bullets from hitting:
+
+* Enemies
+* Friendly factions
+* Anything you specifically target</description>
+</ModMetaData>
