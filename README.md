@@ -4,6 +4,8 @@
 
 [Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=1013648397)
 
+[Forum Thread](https://ludeon.com/forums/index.php?topic=34414)
+
 (This mod has no requirements)
 
 Don't you just hate it when a colonist shoots another accidentally?
