@@ -6,7 +6,7 @@
 
 [Forum Thread](https://ludeon.com/forums/index.php?topic=34414)
 
-(This mod has no requirements)
+_(This mod has no requirements)_
 
 Don't you just hate it when a colonist shoots another accidentally?
 This mod stops bullets from hitting:
