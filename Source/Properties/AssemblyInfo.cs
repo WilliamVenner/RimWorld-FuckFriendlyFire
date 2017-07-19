@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NoFriendlyFire")]
-[assembly: AssemblyDescription("Rimworld Mod")]
+[assembly: AssemblyTitle("FuckFriendlyFire")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NoFriendlyFire")]
+[assembly: AssemblyProduct("FuckFriendlyFire")]
 [assembly: AssemblyCopyright("Copyright © William Venner 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

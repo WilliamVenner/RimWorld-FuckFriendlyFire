@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>[A17] NoFriendlyFire</name>
+	<name>[A17] FuckFriendlyFire</name>
 	<author>Billy [U:1:80628317]</author>
 	<targetVersion>0.17.0</targetVersion>
-	<url>https://github.com/WilliamVenner/RimWorld-NoFriendlyFire</url>
+	<url>https://github.com/WilliamVenner/RimWorld-FuckFriendlyFire</url>
 	<description>(This mod has no requirements)
 
 Don't you just hate it when a colonist shoots another accidentally?
-This mod stops bullets from accidentally hitting:
+With this mod, you can change the chance of pawns' and turrets' bullets from hitting each other accidentally.
+You can change this in a 0-99% chance in the Mod Settings. 0% disables friendly fire completely.
+
+It can stop bullets from hitting:
 
 * Your colonists
 * Your animals
