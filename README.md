@@ -11,8 +11,10 @@
 _(This mod has no requirements)_
 
 Don't you just hate it when a colonist shoots another accidentally?
+With this mod, you can change the chance of pawns' and turrets' bullets from hitting each other accidentally.
+You can change this in a 0-99% chance in the Mod Settings. 0% disables friendly fire completely.
 
-This mod stops bullets from accidentally hitting:
+It can stop bullets from hitting:
 
 * Your colonists
 * Your animals
