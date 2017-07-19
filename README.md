@@ -10,6 +10,8 @@
 
 _(This mod has no requirements)_
 
+----
+
 Don't you just hate it when a colonist shoots another accidentally?
 
 With this mod, you can change the chance of pawns' and turrets' bullets from hitting each other accidentally.
