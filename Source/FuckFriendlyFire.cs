@@ -24,28 +24,42 @@ namespace FuckFriendlyFire
     {
         static void Prefix(Bullet __instance, ref Thing hitThing)
         {
-            if (hitThing.GetType() != typeof(Pawn)) { return;  }
             try
             {
+                if (hitThing.GetType() != typeof(Pawn)) { return; }
+
                 Type t = __instance.GetType().BaseType;
 
                 Thing launcher = (Thing)t.GetField("launcher", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
                 Thing assignedTarget = (Thing)t.GetField("assignedTarget", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-
-                if (launcher.HostileTo(hitThing.Faction) || assignedTarget == hitThing) { return; }
+                
+                if (assignedTarget == hitThing || launcher.HostileTo(hitThing.Faction)) { return; }
+                
+                if ((launcher.GetType() == typeof(Building_TurretGun) && !launcher.HostileTo(hitThing.Faction))) {
+                    if (Settings.turret_hit_chance == 0)
+                        hitThing = null;
+                    else
+                        if (Rand.Range(1, 100) > Settings.turret_hit_chance)
+                            hitThing = null;
+                    return;
+                }
 
                 if (Settings.hit_chance == 0) { hitThing = null; return; }
-                
-                try
+
+                if (launcher.GetType() == typeof(Pawn))
                 {
+                    try
+                    {
 
-                    decimal chance = (decimal)Calculations.CalculateHitChance((Pawn)launcher);
-                    int count = BitConverter.GetBytes(decimal.GetBits(chance)[3])[2];
-                    int r = Rand.Range(1, (int)Math.Pow(10,(2 + count)));
+                        decimal chance = (decimal)Calculations.CalculateHitChance((Pawn)launcher);
+                        int count = BitConverter.GetBytes(decimal.GetBits(chance)[3])[2];
+                        int r = Rand.Range(1, (int)Math.Pow(10, (2 + count)));
 
-                    if (r > ((int)chance * (int)Math.Pow(10, count))) hitThing = null;
+                        if (r > ((int)chance * (int)Math.Pow(10, count))) hitThing = null;
 
-                } catch(InvalidCastException) {}
+                    }
+                    catch (InvalidCastException) { }
+                }
             }
             catch (NullReferenceException) {}
         }
