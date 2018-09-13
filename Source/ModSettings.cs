@@ -3,7 +3,7 @@ using Verse;
 
 namespace FuckFriendlyFire
 {
-    public class Settings : Verse.ModSettings
+    public class Settings : ModSettings
     {
         public static int hit_chance = 0;
         public static int turret_hit_chance = 0;
@@ -35,11 +35,11 @@ namespace FuckFriendlyFire
             hit_chance = (int)list.Slider(hit_chance, 0f, 99f);
             if (hit_chance > 0)
             {
-                list.CheckboxLabeled("Affected by shooting level", ref shooting_level_affects, "When checked, the shooting level of a pawn will affect its friendly fire hit chance. Test below.");
+                list.CheckboxLabeled("Affected by shooting level (test below)", ref shooting_level_affects, "When checked, the shooting level of a pawn will affect its friendly fire hit chance. Test below.");
                 list.Label("Hit Chance After Shooter Level " + simulate + ": " + Calculations.CalculateHitChance(simulate) + "%");
                 simulate = (int)list.Slider(simulate, 0f, 20f);
-                list.End();
             }
+            list.End();
         }
 
         public override void ExposeData()
