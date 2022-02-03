@@ -1,67 +1,91 @@
 ﻿using Verse;
-using Harmony;
+using HarmonyLib;
 using RimWorld;
-using System;
 using System.Reflection;
 
 namespace FuckFriendlyFire
 {
-    class Calculations
+    public class FuckFriendlyFire
     {
-        public static float CalculateHitChance(int shooterLevel)
-        {
-            return (Settings.hit_chance - shooterLevel * Settings.hit_chance / 20f);
-        }
-        public static float CalculateHitChance(Pawn p)
-        {
-            int shooterLevel = p.skills.GetSkill(SkillDefOf.Shooting).Level;
-            return CalculateHitChance(shooterLevel);
-        }
-    }
+        const byte MaxSkillLevel = 20;
 
-    [HarmonyPatch(typeof(Bullet), "Impact", new Type[] { typeof(Thing) })]
-    public static class FuckFriendlyFireBullet_Impact
-    {
-        static void Prefix(Bullet __instance, ref Thing hitThing)
+        public class HitChance
         {
-            try
+            public static float Calculate(int shooterLevel)
             {
-                if (hitThing.GetType() != typeof(Pawn)) { return; }
+                return Settings.HitChance.BaseHitChance * (1f - (shooterLevel / (float)MaxSkillLevel));
+            }
 
-                Type t = __instance.GetType().BaseType;
+            public static float Calculate(Pawn p)
+            {
+                int shooterLevel = Settings.HitChance.ScaleWithShootingLevel ? p.skills.GetSkill(SkillDefOf.Shooting).Level : MaxSkillLevel;
+                return Calculate(shooterLevel);
+            }
 
-                Thing launcher = (Thing)t.GetField("launcher", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-                Thing assignedTarget = (Thing)t.GetField("assignedTarget", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(__instance);
-                
-                if (assignedTarget == hitThing || launcher.HostileTo(hitThing.Faction)) { return; }
-                
-                if ((launcher.GetType() == typeof(Building_TurretGun) && !launcher.HostileTo(hitThing.Faction))) {
-                    if (Settings.turret_hit_chance == 0)
-                        hitThing = null;
-                    else
-                        if (Rand.Range(1, 100) > Settings.turret_hit_chance)
-                            hitThing = null;
+            public static float Generate()
+            {
+                return Rand.Range(0, 10000) / 10000f;
+            }
+
+            public static bool Test(float chance)
+            {
+                float rng = Generate();
+                return rng >= chance;
+            }
+
+            public static bool Test(Pawn pawn)
+            {
+                return Test(Calculate(pawn));
+            }
+        }
+
+        [HarmonyPatch(typeof(Projectile))]
+        [HarmonyPatch("CanHit")]
+        class ProjectileCanHit
+        {
+            static readonly FieldInfo LauncherField = typeof(Projectile).GetField("launcher", BindingFlags.NonPublic | BindingFlags.Instance);
+            static readonly FieldInfo IntendedTargetField = typeof(Projectile).GetField("intendedTarget", BindingFlags.Public | BindingFlags.Instance);
+
+            protected static void Postfix(Projectile __instance, ref Thing thing, ref bool __result)
+            {
+                if (__result == false) return;
+
+                if (thing != null && !(thing is Pawn)) return;
+
+                Thing launcher = (Thing)LauncherField.GetValue(__instance);
+
+                // If nobody launched this, do nothing
+                if (launcher == null) return;
+
+                if (thing != null)
+                {
+                    LocalTargetInfo intendedTargetInfo = (LocalTargetInfo)IntendedTargetField.GetValue(__instance);
+
+                    // If they're specifically targeted, do nothing
+                    if (intendedTargetInfo != null && intendedTargetInfo.Thing == thing) return;
+
+                    // If the launcher of the bullet is hostile to us, do nothing
+                    if (launcher.HostileTo(thing.Faction)) return;
+                }
+
+                // If this is a friendly turret...
+                if (launcher is Building_TurretGun)
+                {
+                    if (thing != null && !launcher.HostileTo(thing.Faction))
+                    {
+                        if (Settings.HitChance.TurretHitChance != 100 && (Settings.HitChance.TurretHitChance == 0 || HitChance.Test(Settings.HitChance.TurretHitChance)))
+                        {
+                            __result = false;
+                        }
+                    }
                     return;
                 }
 
-                if (Settings.hit_chance == 0) { hitThing = null; return; }
-
-                if (launcher.GetType() == typeof(Pawn))
+                if (launcher is Pawn pawn && Settings.HitChance.BaseHitChance != 100 && (Settings.HitChance.BaseHitChance == 0 || HitChance.Test(pawn)))
                 {
-                    try
-                    {
-
-                        decimal chance = (decimal)Calculations.CalculateHitChance((Pawn)launcher);
-                        int count = BitConverter.GetBytes(decimal.GetBits(chance)[3])[2];
-                        int r = Rand.Range(1, (int)Math.Pow(10, (2 + count)));
-
-                        if (r > ((int)chance * (int)Math.Pow(10, count))) hitThing = null;
-
-                    }
-                    catch (InvalidCastException) { }
+                    __result = false;
                 }
             }
-            catch (NullReferenceException) {}
         }
     }
 }

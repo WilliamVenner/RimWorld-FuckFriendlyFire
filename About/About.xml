@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
-	<name>[1.0] FuckFriendlyFire</name>
+	<name>[1.3] FuckFriendlyFire</name>
 	<author>Billy [STEAM_0:1:40314158]</author>
-	<targetVersion>1.0.0</targetVersion>
+	<packageId>venner.io.fuckfriendlyfire</packageId>
+	<supportedVersions>
+		<li>1.0</li>
+		<li>1.1</li>
+		<li>1.2</li>
+		<li>1.3</li>
+	</supportedVersions>
 	<url>https://github.com/WilliamVenner/RimWorld-FuckFriendlyFire</url>
 	<description>(This mod has no requirements)
 
@@ -20,4 +26,18 @@ It doesn't stop bullets from hitting:
 
 * Enemies
 * Anything you specifically target</description>
+
+	<modDependencies>
+		<li>
+			<packageId>brrainz.harmony</packageId>
+			<displayName>Harmony</displayName>
+			<steamWorkshopUrl>steam://url/CommunityFilePage/2009463077</steamWorkshopUrl>
+			<downloadUrl>https://github.com/pardeike/HarmonyRimWorld/releases/latest</downloadUrl>
+		</li>
+	</modDependencies>
+
+	<loadAfter>
+		<li>brrainz.harmony</li>
+		<li>Ludeon.RimWorld</li>
+	</loadAfter>
 </ModMetaData>

@@ -1,5 +1,5 @@
-using System.Reflection;
-using Harmony;
+﻿using System.Reflection;
+using HarmonyLib;
 using UnityEngine;
 using Verse;
 
@@ -11,7 +11,7 @@ namespace FuckFriendlyFire
 
         public Controller(ModContentPack content) : base(content)
         {
-            var harmony = HarmonyInstance.Create("venner.io.fuckfriendlyfire");
+            var harmony = new Harmony("venner.io.fuckfriendlyfire");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
 
             base.GetSettings<Settings>();
